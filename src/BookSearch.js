@@ -12,10 +12,11 @@ class BookSearch extends Component {
     books: [],
     changes: ''
   }
-  addBook = (book, shelf) => {
-    this.props.onChange(book, shelf)
-    this.props.history.push('/')
-  }
+
+    addBook = (book, shelf) => {
+      this.props.onChange(book, shelf)
+      this.props.history.push('/')
+    }
 
   fixChange = (event) => {
     let eValue = event.target.value
@@ -25,6 +26,14 @@ class BookSearch extends Component {
     })
     this.searchBooks(eValue)
   }
+
+  matchBooks = (b) => {
+    this.props.booksMatchShelf.forEach(booksMatchShelf => {
+    b.id === booksMatchShelf.id && (
+      b.shelf = booksMatchShelf.shelf
+    )
+  })
+}
 
   clearBooks = () => {
     this.setState({books: [], changes: ''})
@@ -42,19 +51,21 @@ class BookSearch extends Component {
 
 
   findBooks = (i) => {
-    BooksAPI.search(i,30).then((books) => {
-     if(!!books){
-       if(books.length>0){
-         const results = books.map((book) => {
-           const existingBook = this.state.books.find((b) => b.id === book.id)
-           book.shelf = !!existingBook ? existingBook.shelf : 'none'
-           return book
-         });
-         this.setState({  books:books.filter((book) => (books)) })
+    BooksAPI.search(i, 20).then((books) => {
+       if (books.length > 0) {
+         books.map(book => {
+           book.shelf = 'none',
+           this.matchBooks(book);
+         })
+
+         this.setState(() => {
+           return {
+             books: books
+           }
+         })
        }
-     }
-   })
- }
+     })
+   }
 
 
 
@@ -65,25 +76,24 @@ class BookSearch extends Component {
       this.findBooks(value);
       this.noBooks(value);
 
+
     }
     else {
       this.clearBooks()
-
     }
   }
 
 
   bookGrid = () => {
     return (
-         <div className="books-grid">
-      {this.state.changes.length > 0 && this.state.books.map((book, index) =>
-        (<Book book={ book } key={ index } onUpdate={(shelf) => {
-        this.addBook(book, shelf)
-      }}/>))}
-        </div>
-
-    )
-  }
+    <div className="books-grid">
+     {this.state.changes.length > 0 && this.state.books.map((book, index) =>
+       (<Book book={ book } key={ index } value={ book.shelf } onUpdate={(shelf) => {
+       this.addBook(book, shelf)
+     }}/>))}
+   </div>
+   )
+ }
 
   render() {
     return (
