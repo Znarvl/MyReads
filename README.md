@@ -1,15 +1,22 @@
 # MyReads Project
 
-This is the starter template for the final assessment project for Udacity's React Fundamentals course. The goal of this template is to save you time by providing a static example of the CSS and HTML markup that may be used, but without any of the React code that is needed to complete the project. If you choose to start with this template, your job will be to add interactivity to the app by refactoring the static code in this template.
-
-Of course, you are free to start this project from scratch if you wish! Just be sure to use [Create React App](https://github.com/facebookincubator/create-react-app) to bootstrap the project.
+This is the react project of my front-end web course of udacity
+In the TL;DR you can see how to start the application right away.
+I've learnt a lot from this project. Especially that react is like lego, you put things together one by one
+I've been using the website npmjs when I was in doubt what npm to install and google to find crucial information how react works.
 
 ## TL;DR
 
 To get started developing right away:
 
 * install all project dependencies with `npm install`
+* Also, you need install other dependencies such as:
+* `npm install --save react-router-dom `
+* `npm install --save prop-types`
+* `npm i --save lodash`
 * start the development server with `npm start`
+
+
 
 ## What You're Getting
 ```bash
@@ -71,11 +78,11 @@ update(book, shelf)
 Method Signature:
 
 ```js
-search(query)
+search(changes)
 ```
 
-* query: `<String>`
-* Returns a Promise which resolves to a JSON object containing a collection of a maximum of 20 book objects.
+* Changes: `<String>`
+* Returns a Promise which resolves to a JSON object containing a collection of a maximum of 10 book objects.
 * These books do not know which shelf they are on. They are raw results only. You'll need to make sure that books have the correct state while on the search page.
 
 ## Important
